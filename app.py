@@ -22,7 +22,7 @@ st.markdown("""
     </style>
     """, unsafe_allow_html = True)
 
-st.title("Property Price Prediction App")
+st.title("🏠 Property Price Prediction App")
 
 st.write("Enter Property Details:")
 
