@@ -81,4 +81,4 @@ if st.button("Predict Price"):
         st.balloons()
         st.markdown(f"""
         ### Result:
-        The estimated market price for this property is: 💰 ₹ {prediction[0]:,.2f} Lakhs""")
+        The Estimated Market Price for this Property is: 💰 ₹ {prediction[0]:,.2f} Lakhs""")
