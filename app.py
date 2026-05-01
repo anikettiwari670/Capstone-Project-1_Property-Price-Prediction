@@ -11,17 +11,16 @@ scaler = joblib.load("Scaler.pkl")
 # Setting up the page UI.
 st.set_page_config(page_title = "Property Price Predictor", layout = "centered")
 
-page_bg_img = """
-<style>
-[data-testid="stAppViewContainer"] {
-    background-color: #f5f7f9;
-}
-[data-testid="stSidebar"] {
-    background-color: #ffffff;
-}
-</style>
-"""
-st.markdown(page_bg_img, unsafe_allow_html = True)
+st.markdown("""
+    <style>
+    .stApp {
+        background-color: #2E0854; /* Deep Purple */
+    }
+    h1, p, label {
+        color: white !important; /* Makes title and labels white for contrast */
+    }
+    </style>
+    """, unsafe_allow_html = True)
 
 st.title("Property Price Prediction App")
 
