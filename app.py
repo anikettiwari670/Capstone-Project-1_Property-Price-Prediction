@@ -78,7 +78,7 @@ if st.button("Predict Price"):
         prediction = model.predict(input_scaled)
 
     # Displaying the results. 
-        st.confetti()
+        st.balloons()
         st.markdown(f"""
         ### Result:
         The Estimated Market Price for this Property is: 💰 ₹ {prediction[0]:,.2f} Lakhs.""")
