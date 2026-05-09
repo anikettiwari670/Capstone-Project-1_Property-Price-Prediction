@@ -10,7 +10,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# ---------------- LOAD MODEL FILES ----------------
+# ---------------- LOAD FILES ----------------
 model = joblib.load("Property_Price_Prediction.pkl")
 columns = joblib.load("Model_columns.pkl")
 scaler = joblib.load("Scaler.pkl")
@@ -19,7 +19,7 @@ scaler = joblib.load("Scaler.pkl")
 st.markdown("""
 <style>
 
-/* Main Background */
+/* Main App */
 .stApp {
     background: linear-gradient(135deg, #141E30, #243B55);
     color: white;
@@ -30,12 +30,14 @@ st.markdown("""
     background-color: #1E1E2F;
 }
 
-/* Sidebar Labels */
-[data-testid="stSidebar"] label,
-[data-testid="stSidebar"] .stSelectbox label,
-[data-testid="stSidebar"] .stNumberInput label {
+/* ALL TEXT */
+html, body, [class*="css"] {
     color: white !important;
-    font-weight: 600;
+}
+
+/* Labels & Headings */
+label, p, h1, h2, h3, h4, h5, h6, span {
+    color: white !important;
 }
 
 /* Sidebar Text */
@@ -43,12 +45,57 @@ st.markdown("""
     color: white !important;
 }
 
-/* Input Labels */
-label {
+/* Input Boxes */
+.stTextInput input,
+.stNumberInput input,
+.stSelectbox div[data-baseweb="select"] > div {
+    background-color: #2D2D44 !important;
+    color: white !important;
+    border-radius: 10px !important;
+    border: 1px solid #666 !important;
+}
+
+/* Dropdown Menu */
+div[role="listbox"] {
+    background-color: #2D2D44 !important;
     color: white !important;
 }
 
-/* Prediction Box */
+/* Dropdown Options */
+div[role="option"] {
+    background-color: #2D2D44 !important;
+    color: white !important;
+}
+
+/* Metric Cards */
+[data-testid="metric-container"] {
+    background-color: rgba(255,255,255,0.08);
+    border-radius: 15px;
+    padding: 15px;
+}
+
+/* Metric Labels */
+[data-testid="metric-container"] label {
+    color: white !important;
+}
+
+/* Metric Values */
+[data-testid="metric-container"] div {
+    color: white !important;
+}
+
+/* Buttons */
+.stButton button {
+    background: linear-gradient(135deg,#6a11cb,#2575fc);
+    color: white !important;
+    border: none;
+    border-radius: 12px;
+    height: 50px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Result Box */
 .result-box {
     background: linear-gradient(135deg,#11998e,#38ef7d);
     padding: 25px;
@@ -64,7 +111,7 @@ label {
 .footer {
     text-align: center;
     color: white;
-    padding: 15px;
+    padding: 20px;
 }
 
 </style>
@@ -79,7 +126,9 @@ st.markdown("""
     border-radius:20px;
     margin-bottom:25px;
 ">
-    <h1 style="color:white;">🏠 AI Property Price Predictor</h1>
+    <h1 style="color:white;">
+        🏠 AI Property Price Predictor
+    </h1>
     <p style="color:white;font-size:18px;">
         Predict Real Estate Prices Instantly Using Machine Learning
     </p>
@@ -93,7 +142,7 @@ m1.metric("📊 Model Accuracy", "92%")
 m2.metric("🏘 Dataset Size", "29K+")
 m3.metric("⚡ Prediction Speed", "0.2s")
 
-# ---------------- SIDEBAR INPUTS ----------------
+# ---------------- SIDEBAR ----------------
 with st.sidebar:
 
     st.header("📋 Property Details")
@@ -106,12 +155,18 @@ with st.sidebar:
     under_construction = {
         "No": 0,
         "Yes": 1
-    }[st.selectbox("Under Construction", ["No", "Yes"])]
+    }[st.selectbox(
+        "Under Construction",
+        ["No", "Yes"]
+    )]
 
     rera = {
         "No": 0,
         "Yes": 1
-    }[st.selectbox("RERA Approved", ["No", "Yes"])]
+    }[st.selectbox(
+        "RERA Approved",
+        ["No", "Yes"]
+    )]
 
     bhk_no = st.number_input(
         "Number of BHK",
@@ -133,12 +188,18 @@ with st.sidebar:
     ready_to_move = {
         "No": 0,
         "Yes": 1
-    }[st.selectbox("Ready To Move", ["No", "Yes"])]
+    }[st.selectbox(
+        "Ready To Move",
+        ["No", "Yes"]
+    )]
 
     resale = {
         "No": 0,
         "Yes": 1
-    }[st.selectbox("Resale", ["No", "Yes"])]
+    }[st.selectbox(
+        "Resale",
+        ["No", "Yes"]
+    )]
 
     longitude = st.number_input(
         "Longitude",
@@ -154,7 +215,7 @@ with st.sidebar:
         format="%.6f"
     )
 
-# ---------------- FEATURE ENCODING ----------------
+# ---------------- ENCODING ----------------
 input_df = pd.DataFrame({
 
     "POSTED_BY_Dealer": [
@@ -192,13 +253,13 @@ input_df = input_df.reindex(
     fill_value=0
 )
 
-# ---------------- MAIN TABS ----------------
+# ---------------- TABS ----------------
 tab1, tab2 = st.tabs([
     "🏠 Prediction",
     "📊 Market Insights"
 ])
 
-# ---------------- TAB 1 ----------------
+# ---------------- PREDICTION TAB ----------------
 with tab1:
 
     st.image(
@@ -227,7 +288,6 @@ with tab1:
 
             st.balloons()
 
-            # Result Card
             st.markdown(f"""
             <div class="result-box">
                 💰 Estimated Property Price <br><br>
@@ -235,7 +295,7 @@ with tab1:
             </div>
             """, unsafe_allow_html=True)
 
-# ---------------- TAB 2 ----------------
+# ---------------- INSIGHTS TAB ----------------
 with tab2:
 
     st.subheader("📈 Real Estate Market Trends")
